@@ -2,6 +2,43 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+  /* Prototype notice: survives the bundler's document swap. */
+  (function () {
+    if (/[?&]embed=1/.test(location.search)) return;
+    var SV = "Prototyp – ingen riktig tjänst. Inget CV laddas upp och inget betalas.";
+    var EN = "Prototype – not a real service. No CV is uploaded and nothing is paid.";
+    function ensure() {
+      var head = document.head, body = document.body;
+      if (head && !head.querySelector('meta[name="robots"]')) {
+        var m = document.createElement("meta");
+        m.name = "robots"; m.content = "noindex, nofollow";
+        head.appendChild(m);
+      }
+      if (!body || document.getElementById("jv-proto-banner")) return;
+      var d = document.createElement("div");
+      d.id = "jv-proto-banner";
+      d.setAttribute("role", "note");
+      d.lang = "sv";
+      d.textContent = SV + "  ·  " + EN;
+      d.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:2147483647;" +
+        "padding:7px 12px;" +
+        "background:#7a2c2c;color:#fff;font:600 13px/1.25 system-ui,-apple-system,sans-serif;" +
+        "text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.25)";
+      body.appendChild(d);
+      fit();
+    }
+    function fit() {
+      var d = document.getElementById("jv-proto-banner");
+      if (d) document.documentElement.style.paddingTop = d.offsetHeight + "px";
+    }
+    new MutationObserver(ensure).observe(document, { childList: true, subtree: true });
+    document.addEventListener("DOMContentLoaded", ensure);
+    window.addEventListener("resize", fit);
+    setInterval(fit, 500);   // banner height changes as fonts load and text wraps
+  })();
+  </script>
   <title>Jobbvakt</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
